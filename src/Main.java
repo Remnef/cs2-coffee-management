@@ -13,19 +13,19 @@ public class Main {
         Working working = new Working();
         List<Drink> drinks = working.readf(pathFile);
         int choice = 0;
-        String str="";
+        String checkInput="";
         do{
             System.out.println();
-            System.out.println("----------------------------------Welcome---------------------------------");
-            System.out.println("                               Who are you ?");
+            System.out.println("--------------------------------------------Welcome------------------------------------------");
+            System.out.println("                                         Who are you ?");
             System.out.println("\t1.Client");
             System.out.println("\t2.Admin");
             System.out.println("\t0.exit");
             do {
                 System.out.print("\tYour choice is : ");
-                str = new Scanner(System.in).nextLine();
-            }while (!working.checkRegex(str,"([0|1|2])"));
-            choice = Integer.parseInt(str);
+                checkInput = new Scanner(System.in).nextLine();
+            }while (!working.checkRegex(checkInput,"([0|1|2])"));
+            choice = Integer.parseInt(checkInput);
             switch (choice){
                 case 1:
                     int clientChoice=0;
@@ -41,20 +41,20 @@ public class Main {
                                     int id = 0;
                                     do {
                                         System.out.print("\n\tWhat drink you wanna (please get choice by Id) : ");
-                                        str = new Scanner(System.in).nextLine();
-                                        if (working.checkRegex(str,"\\d+")){
-                                            id = Integer.parseInt(str);
+                                        checkInput = new Scanner(System.in).nextLine();
+                                        if (working.checkRegex(checkInput,"\\d+")){
+                                            id = Integer.parseInt(checkInput);
                                         }
-                                    }while(!working.checkRegex(str,"\\d+") || id <= 0 || id > drinks.size());
+                                    }while(!working.checkRegex(checkInput,"\\d+") || id <= 0 || id > drinks.size());
                                     do {
                                         System.out.print("\n\tAnd amount: ");
-                                        str = new Scanner(System.in).nextLine();
-                                    }while(!working.checkRegex(str,"\\d+"));
-                                    drinks.get(id-1).setAmount(Integer.parseInt(str));
+                                        checkInput = new Scanner(System.in).nextLine();
+                                    }while(!working.checkRegex(checkInput,"\\d+"));
+                                    drinks.get(id-1).setAmount(Integer.parseInt(checkInput));
                                     bill += drinks.get(id-1).getBill();
                                     System.out.print("\n\tYour choice is :");
                                     System.out.println(drinks.get(id - 1).toString());
-                                    line += "\t\t"+drinks.get(id - 1).toString();
+                                    line += "\t\t+ "+drinks.get(id - 1).toString();
                                     working.writeAdmin(pathOrder, drinks.get(id - 1).toString());
                                     System.out.println("\tWe are got your order. Thank you! ^^");
                                     do {
@@ -66,9 +66,9 @@ public class Main {
                                         System.out.println(line);
                                         System.out.println("\tYour bill is: "+bill);
                                         do {
-                                            System.out.print("\t\tEnter 0 to back for do something ");
-                                            str = new Scanner(System.in).nextLine();
-                                        }while(!working.checkRegex(str,"([0])"));
+                                            System.out.print("\tEnter 0 to back for do something ");
+                                            checkInput = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(checkInput,"([0])"));
                                     }
                                 } while (check.equals("Y"));
                                 break;
@@ -145,21 +145,27 @@ public class Main {
                                     working.showList(drinks);
                                     do {
                                         System.out.print("\n\tHow much drinks do you wanna add: : ");
-                                        str = new Scanner(System.in).nextLine();
-                                    }while(!working.checkRegex(str,"\\d+"));
-                                    int count = Integer.parseInt(str);
+                                        checkInput = new Scanner(System.in).nextLine();
+                                    }while(!working.checkRegex(checkInput,"\\d+"));
+                                    int count = Integer.parseInt(checkInput);
                                     for (int i = 0; i < count; i++) {
                                         Drink drink = new Drink();
-                                        System.out.print("\t\t-Name: ");
-                                        drink.setName(new Scanner(System.in).nextLine());
+                                        do {
+                                            System.out.print("\t\t-Name: ");
+                                            checkInput = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(checkInput,"[a-zA-Z0-9]+"));
+                                        drink.setName(checkInput);
                                         do {
                                             System.out.print("\t\t-Cost: ");
-                                            str = new Scanner(System.in).nextLine();
-                                        }while(!working.checkRegex(str,"\\d+"));
-                                        int demo = Integer.parseInt(str);
+                                            checkInput = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(checkInput,"\\d+"));
+                                        int demo = Integer.parseInt(checkInput);
                                         drink.setCost(demo);
-                                        System.out.print("\t\t-Type: ");
-                                        drink.setType(new Scanner(System.in).nextLine());
+                                        do {
+                                            System.out.print("\t\t-Type: ");
+                                            checkInput = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(checkInput,"[a-zA-Z0-9]+"));
+                                        drink.setType(checkInput);
                                         if (working.checkName(drink.getName(),drinks)){
                                             System.out.println("\t\tThis drink is exist!");
                                         }else {
@@ -189,22 +195,26 @@ public class Main {
                                     int count =0;
                                     do {
                                         System.out.print("\n\tHow much drinks do you wanna delete: ");
-                                        str = new Scanner(System.in).nextLine();
-                                        if (working.checkRegex(str,"\\d+")){
-                                            count = Integer.parseInt(str);
+                                        checkInput = new Scanner(System.in).nextLine();
+                                        if (working.checkRegex(checkInput,"\\d+")){
+                                            count = Integer.parseInt(checkInput);
                                         }
-                                    }while(!working.checkRegex(str,"\\d+") || count > drinks.size());
+                                    }while(!working.checkRegex(checkInput,"\\d+") || count > drinks.size());
                                     int[] id = new int[count];
                                     for (int i = 0; i < count; i++) {
                                         do {
                                             System.out.print("\t\tThe number "+(i+1)+" id is: ");
-                                            str = new Scanner(System.in).nextLine();
-                                            if (working.checkRegex(str,"\\d+")){
-                                                id[i] = Integer.parseInt(str);
+                                            checkInput = new Scanner(System.in).nextLine();
+                                            if (working.checkRegex(checkInput,"\\d+")){
+                                                id[i] = Integer.parseInt(checkInput);
                                             }
-                                        }while(!working.checkRegex(str,"\\d+") || id[i] <= 0 || id[i] > drinks.size());
+                                        }while(!working.checkRegex(checkInput,"\\d+") || id[i] <= 0 || id[i] > drinks.size());
                                         System.out.println("\n\t"+working.getMessage(drinks.get(id[i]-1)));
                                         System.out.println("\tThe drink is deleted!");
+                                        do {
+                                            System.out.print("\tEnter 0 to back for do something ");
+                                            checkInput = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(checkInput,"([0])"));
                                     }
                                     for (int i = 0; i<count; i++){
                                         drinks.remove(id[i]-1);
@@ -229,27 +239,33 @@ public class Main {
                                     working.showList(drinks);
                                     do {
                                         System.out.print("\n\tHow much drinks do you wanna edit: ");
-                                        str = new Scanner(System.in).nextLine();
-                                    }while(!working.checkRegex(str,"\\d+"));
-                                    int count = Integer.parseInt(str);
+                                        checkInput = new Scanner(System.in).nextLine();
+                                    }while(!working.checkRegex(checkInput,"\\d+"));
+                                    int count = Integer.parseInt(checkInput);
                                     for (int i = 0; i < count; i++) {
                                         int id = 0;
                                         do {
                                             System.out.print("\n\tThe Id "+(i+1)+" is : ");
-                                            str = new Scanner(System.in).nextLine();
-                                            if (working.checkRegex(str,"\\d+")){
-                                                id = Integer.parseInt(str);
+                                            checkInput = new Scanner(System.in).nextLine();
+                                            if (working.checkRegex(checkInput,"\\d+")){
+                                                id = Integer.parseInt(checkInput);
                                             }
-                                        }while(!working.checkRegex(str,"\\d+") || id <= 0 || id > drinks.size());
-                                        System.out.print("\t\t-New name: ");
-                                        drinks.get(id-1).setName(new Scanner(System.in).nextLine());
+                                        }while(!working.checkRegex(checkInput,"\\d+") || id <= 0 || id > drinks.size());
+                                        do {
+                                            System.out.print("\t\t-New name: ");
+                                            checkInput = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(checkInput,"[a-zA-Z0-9]"));
+                                        drinks.get(id-1).setName(checkInput);
                                         do {
                                             System.out.print("\t\t-Cost: ");
-                                            str = new Scanner(System.in).nextLine();
-                                        }while(!working.checkRegex(str,"\\d+"));
-                                        drinks.get(id-1).setCost(Integer.parseInt(str));
-                                        System.out.print("\t\t-New type: ");
-                                        drinks.get(id-1).setType(new Scanner(System.in).nextLine());
+                                            checkInput = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(checkInput,"\\d+"));
+                                        drinks.get(id-1).setCost(Integer.parseInt(checkInput));
+                                        do {
+                                            System.out.print("\t\t-Type: ");
+                                            checkInput = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(checkInput,"[a-zA-Z0-9]+"));
+                                        drinks.get(id-1).setType(checkInput);
                                         System.out.println("\n\t"+working.getMessage(drinks.get(id-1)));
                                         System.out.println("\tThis drink is edited!");
                                     }

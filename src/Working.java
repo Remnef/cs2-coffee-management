@@ -45,7 +45,7 @@ public class Working {
     public void showList(List<Drink> list){
         Working working = new Working();
         working.sortDrinks(list);
-        System.out.println("----------------------------------------Menu-------------------------------------");
+        System.out.println("-----------------------------------------------Menu---------------------------------------------------");
         System.out.println();
         System.out.println("\tToday we have :\n");
         System.out.format("%20s| %19s| %19s| %19s","Type","Name","Cost","Id");
@@ -114,6 +114,7 @@ public class Working {
 
     public int menuClient(){
         System.out.println("");
+        System.out.println("                                          Welcome Client! ^^\n");
         System.out.println("\tYou have some choice: ");
         System.out.println("\t\t1.Order Dink by id.");
         System.out.println("\t\t2.Write the feedback.");
@@ -137,7 +138,7 @@ public class Working {
     }
 
     public int menuAdmin(){
-        System.out.println("----------------------------------Welcome Admin------------------------------");
+        System.out.println("-----------------------------------------------Welcome Admin------------------------------------------");
         System.out.println("\n\tSomething you can do: ");
         System.out.println("\t\t1.Get feedback.");
         System.out.println("\t\t2.Get order.");
