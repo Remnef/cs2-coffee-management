@@ -1,0 +1,1 @@
+Bottle-[ Coca,cost: 20000VND, amount: 1, bill: 20000 vnd]
